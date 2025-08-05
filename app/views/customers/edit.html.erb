@@ -1,0 +1,18 @@
+<div class="container mt-5">
+  <div class="card rounded-4 shadow">
+    <div class="card-header bg-primary text-white rounded-top-4">
+      <h3 class="mb-0">Editar Cliente</h3>
+    </div>
+
+    <div class="card-body">
+      <%= simple_form_for @customer do |f| %>
+        <%= f.input :name %>
+        <%= f.input :age %>
+        <div class="d-flex justify-content-between">
+          <%= f.button :submit, 'Atualizar Cliente', class: 'btn btn-success' %>
+          <%= link_to 'Voltar', customers_path, class: 'btn btn-outline-secondary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

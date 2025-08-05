@@ -1,0 +1,12 @@
+pt:
+  dry_validation:
+    errors:
+      rules:
+        name:
+          filled?: "não pode ficar em branco"
+        age:
+          filled?: "não pode ficar em branco"
+          gteq?: "deve ser maior ou igual a %{num}"
+  attributes:
+    name: "Nome"
+    age: "Idade"

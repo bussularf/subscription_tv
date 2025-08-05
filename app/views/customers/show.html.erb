@@ -1,0 +1,17 @@
+<div class="container mt-4">
+  <div class="card rounded-4 shadow">
+    <div class="card-header bg-primary text-white rounded-top-4">
+      <h2>Customer Details</h2>
+    </div>
+
+    <div class="card-body">
+      <h5 class="card-title"><%= @customer.name %></h5>
+      <p class="card-text"><strong>Age:</strong> <%= @customer.age %></p>
+    </div>
+
+    <div class="card-footer text-end">
+      <%= link_to 'Voltar', customers_path, class: 'btn btn-outline-secondary' %>
+      <%= link_to 'Editar', edit_customer_path(@customer), class: 'btn btn-primary' %>
+    </div>
+  </div>
+</div>
