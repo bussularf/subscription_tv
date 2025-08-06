@@ -12,7 +12,6 @@ Aplicação construída com **Ruby on Rails 8**, focada na criação e gerenciam
 
 ## 📸 Screenshot
 
-
 ---
 
 ## 🚀 Tecnologias
@@ -38,7 +37,6 @@ rails db:create db:migrate
 # Inicie o servidor
 rails s
 ```
-
 ---
 
 ## ✅ Requisitos

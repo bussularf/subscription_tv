@@ -1,0 +1,25 @@
+<%= simple_form_for @customer, html: { class: 'needs-validation' } do |f| %>
+  <% if @customer.errors.any? %>
+    <div class="alert alert-danger">
+      <h5><%= pluralize(@customer.errors.count, "erro") %> impediram o salvamento do cliente:</h5>
+      <ul>
+        <% @customer.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= f.input :name, label: "Nome", input_html: { class: 'form-control' } %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.input :age, label: "Idade", input_html: { class: 'form-control' } %>
+  </div>
+
+  <div class="d-flex justify-content-between">
+    <%= f.button :submit, (@customer.persisted? ? 'Atualizar Cliente' : 'Criar Cliente'), class: 'btn btn-success' %>
+    <%= link_to 'Voltar', customers_path, class: 'btn btn-outline-secondary' %>
+  </div>
+<% end %>

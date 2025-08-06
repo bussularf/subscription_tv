@@ -1,0 +1,25 @@
+<%= simple_form_for @plan do |f| %>
+  <% if @plan.errors.any? %>
+    <div class="alert alert-danger">
+      <h5><%= pluralize(@plan.errors.count, "erro") %> impediram o salvamento do plano:</h5>
+      <ul>
+        <% @plan.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= f.input :name, label: "Nome", input_html: { class: 'form-control' } %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.input :value, label: "Valor", input_html: { class: 'form-control', step: 0.01 } %>
+  </div>
+
+  <div class="d-flex justify-content-between">
+    <%= f.button :submit, (@plan.new_record? ? "Criar Plano" : "Atualizar Plano"), class: 'btn btn-success' %>
+    <%= link_to 'Voltar', plans_path, class: 'btn btn-outline-secondary' %>
+  </div>
+<% end %>

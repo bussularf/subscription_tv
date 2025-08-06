@@ -9,41 +9,38 @@ class CustomersController < ApplicationController
     @customer = Customer.new
   end
 
-  def update
-    if @customer.update(customer_params)
-      redirect_to @customer, notice: "Cliente editado com sucesso."
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
+  def show; end
+
+  def edit; end
 
   def create
-    result = Customers::CreateCustomer.new(customer_params.to_h.symbolize_keys).call
+    result = Customers::ValidateCustomer.new(params: customer_params.to_h.symbolize_keys).call
 
     if result.success?
-      redirect_to customer_path(result.customer), notice: "Cliente criado com sucesso."
+      redirect_to customer_path(result.data), notice: t("customers.create.success")
     else
       @customer = Customer.new(customer_params)
-
-      result.errors.each do |field, messages|
-        Array(messages).each do |msg|
-          @customer.errors.add(field, msg)
-        end
-      end
+      render_error(result)
 
       render :new, status: :unprocessable_entity
     end
   end
 
+  def update
+    result = Customers::ValidateCustomer.new(params: customer_params.to_h.symbolize_keys, customer: @customer).call
+
+    if result.success?
+      redirect_to customer_path(result.data), notice: t("customers.update.success")
+    else
+      render_error(result)
+
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def destroy
     @customer.destroy
-    redirect_to customers_path, notice: "Cliente deletado com sucesso."
-  end
-
-  def show
-  end
-
-  def edit
+    redirect_to customers_path, notice: t("customers.destroy.success")
   end
 
   private
@@ -54,5 +51,13 @@ class CustomersController < ApplicationController
 
   def customer_params
     params.require(:customer).permit(:name, :age)
+  end
+
+  def render_error(result)
+    result.errors.each do |field, messages|
+        messages.each do |msg|
+          @customer.errors.add(field, msg)
+        end
+      end
   end
 end

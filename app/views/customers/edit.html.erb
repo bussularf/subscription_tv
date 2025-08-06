@@ -5,14 +5,7 @@
     </div>
 
     <div class="card-body">
-      <%= simple_form_for @customer do |f| %>
-        <%= f.input :name %>
-        <%= f.input :age %>
-        <div class="d-flex justify-content-between">
-          <%= f.button :submit, 'Atualizar Cliente', class: 'btn btn-success' %>
-          <%= link_to 'Voltar', customers_path, class: 'btn btn-outline-secondary' %>
-        </div>
-      <% end %>
+      <%= render 'form' %>
     </div>
   </div>
 </div>
