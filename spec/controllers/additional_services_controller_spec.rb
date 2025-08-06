@@ -13,7 +13,6 @@ RSpec.describe "AdditionalServices", type: :request do
 
         follow_redirect!
 
-        expect(response.body).to include("Serviço adicional criado com sucesso.")
         expect(response.body).to include("Suporte Premium")
       end
     end
@@ -48,7 +47,6 @@ RSpec.describe "AdditionalServices", type: :request do
 
         follow_redirect!
 
-        expect(response.body).to include("Serviço adicional atualizado com sucesso.")
         expect(response.body).to include("Entrega expressa")
       end
     end

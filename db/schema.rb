@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_05_235643) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_06_051620) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -21,11 +21,26 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_05_235643) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "additional_services_packages", id: false, force: :cascade do |t|
+    t.bigint "additional_service_id", null: false
+    t.bigint "package_id", null: false
+  end
+
   create_table "customers", force: :cascade do |t|
     t.string "name"
     t.integer "age"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "packages", force: :cascade do |t|
+    t.string "name"
+    t.bigint "plan_id", null: false
+    t.decimal "value", precision: 10, scale: 2, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "manual_value", default: false
+    t.index ["plan_id"], name: "index_packages_on_plan_id"
   end
 
   create_table "plans", force: :cascade do |t|
@@ -34,4 +49,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_05_235643) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "packages", "plans"
 end

@@ -17,7 +17,7 @@ class AdditionalServicesController < ApplicationController
     result = AdditionalServices::ValidateAdditionalService.new(params: service_params.to_h.symbolize_keys).call
 
     if result.success?
-      redirect_to additional_service_path(result.data), notice: "Serviço adicional criado com sucesso."
+      redirect_to additional_service_path(result.data), notice: t("addition_services.create.success")
     else
       @service = AdditionalService.new(service_params)
       result.errors.each do |field, messages|
@@ -32,7 +32,7 @@ class AdditionalServicesController < ApplicationController
     result = AdditionalServices::ValidateAdditionalService.new(params: service_params.to_h.symbolize_keys, service: @service).call
 
     if result.success?
-      redirect_to additional_service_path(result.data), notice: "Serviço adicional atualizado com sucesso."
+      redirect_to additional_service_path(result.data), notice: t("addition_services.update.success")
     else
       result.errors.each do |field, messages|
         Array(messages).each { |msg| @service.errors.add(field, msg) }
@@ -44,7 +44,7 @@ class AdditionalServicesController < ApplicationController
 
   def destroy
     @service.destroy
-    redirect_to additional_services_path, notice: "Serviço adicional deletado com sucesso."
+    redirect_to additional_services_path, notice: t("addition_services.destroy.success")
   end
 
   private

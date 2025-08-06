@@ -1,0 +1,42 @@
+<%= simple_form_for @package do |f| %>
+  <% if @package.errors.any? %>
+    <div class="alert alert-danger">
+      <h5><%= pluralize(@package.errors.count, "erro") %> impediram o salvamento do pacote:</h5>
+      <ul>
+        <% @package.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.input :name, label: "Nome" %>
+  <%= f.association :plan, label: "Plano" %>
+
+  <div class="mb-3">
+    <label class="form-label">Serviços Adicionais</label>
+    <% AdditionalService.all.each do |service| %>
+      <div class="form-check">
+        <%= check_box_tag "package[additional_service_ids][]",
+                          service.id,
+                          @package.additional_service_ids.include?(service.id),
+                          id: "package_additional_service_#{service.id}",
+                          class: "form-check-input" %>
+
+        <%= label_tag "package_additional_service_#{service.id}",
+                      service.name,
+                      class: "form-check-label" %>
+      </div>
+    <% end %>
+  </div>
+
+  <% if @package.persisted? && @package.manual_value? %>
+    <%= f.input :manual_value, as: :boolean, label: "Manter valor manual?" %>
+  <% end %>
+
+  <% if !@package.persisted? || !@package.manual_value? %>
+    <%= f.input :value, label: "Valor (R$)", input_html: { class: 'form-control', inputmode: 'decimal', placeholder: "Ex: 19.90" } %>
+  <% end %>
+
+  <%= f.button :submit, "Salvar Pacote", class: "btn btn-success" %>
+<% end %>

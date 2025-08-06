@@ -17,7 +17,7 @@ class PlansController < ApplicationController
     result = Plans::ValidatePlan.new(params: plan_params.to_h.symbolize_keys).call
 
     if result.success?
-      redirect_to plan_path(result.data), notice: "Plano criado com sucesso."
+      redirect_to plan_path(result.data), notice: t("plans.create.success")
     else
       @plan = Plan.new(plan_params)
 
@@ -33,7 +33,7 @@ class PlansController < ApplicationController
     result = Plans::ValidatePlan.new(params: plan_params.to_h.symbolize_keys, plan: @plan).call
 
     if result.success?
-      redirect_to plan_path(@plan), notice: "Plano atualizado com sucesso."
+      redirect_to plan_path(@plan), notice: t("plans.update.success")
     else
       result.errors.each do |field, messages|
         Array(messages).each { |msg| @plan.errors.add(field, msg) }
@@ -45,7 +45,7 @@ class PlansController < ApplicationController
 
   def destroy
     @plan.destroy
-    redirect_to plans_path, notice: "Plano deletado com sucesso."
+    redirect_to plans_path, notice: t("plans.destroy.success")
   end
 
   private

@@ -1,0 +1,33 @@
+<div class="container mt-4">
+  <div class="card rounded-4 shadow">
+    <div class="card-header bg-primary text-white rounded-top-4">
+      <h2>Detalhes do Pacote</h2>
+    </div>
+
+    <div class="card-body">
+      <h5 class="card-title"><%= @package.name %></h5>
+      <p class="card-text"><strong>Plano <%= @package.plan.name %></strong> - <%= @package.plan.value %></p>
+
+      <% if @package.additional_services.any? %>
+        <p class="card-text"><strong>Serviços Adicionais:</strong></p>
+        <ul class="list-unstyled">
+          <% @package.additional_services.each do |service| %>
+            <li><strong><%= service.name %></strong> - R$ <%= number_to_currency(service.value, unit: "", separator: ",", delimiter: ".") %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="card-text"><strong>Serviços Adicionais:</strong> Nenhum</p>
+      <% end %>
+
+      <p class="card-text"><strong>Valor Total:</strong> R$ <%= number_to_currency(@package.value, unit: "", separator: ",", delimiter: ".") %></p>
+
+    </div>
+
+    <div class="card-footer text-end">
+      <%= link_to 'Voltar', packages_path, class: 'btn btn-outline-secondary' %>
+      <%= link_to 'Editar', edit_package_path(@package), class: 'btn btn-primary' %>
+    </div>
+  </div>
+</div>
+
+
