@@ -9,14 +9,18 @@ module Packages
       validation = PackageContract.new.call(@params)
 
       if validation.success?
-        calculated_value = if @params[:manual_value] == "1"
-          @params[:value]
-        else
-          calculate_total
-        end
+        calculated_value = calculate_total
+        input_value = @params[:value].to_f
+
+        is_manual = @params[:manual_value] == "1" || (input_value > 0.0 && calculated_value && input_value != calculated_value)
+
+        final_value = is_manual ? input_value : calculated_value
 
         data = @package || Package.new
-        data.assign_attributes(@params.merge(value: calculated_value))
+        data.assign_attributes(@params.merge(
+          value: final_value,
+          manual_value: is_manual
+        ))
 
         if data.save
           ServiceResponse.new(success: true, data: data)

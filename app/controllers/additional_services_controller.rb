@@ -20,10 +20,7 @@ class AdditionalServicesController < ApplicationController
       redirect_to additional_service_path(result.data), notice: t("addition_services.create.success")
     else
       @service = AdditionalService.new(service_params)
-      result.errors.each do |field, messages|
-        Array(messages).each { |msg| @service.errors.add(field, msg) }
-      end
-
+      render_error(result)
       render :new, status: :unprocessable_entity
     end
   end
@@ -34,10 +31,7 @@ class AdditionalServicesController < ApplicationController
     if result.success?
       redirect_to additional_service_path(result.data), notice: t("addition_services.update.success")
     else
-      result.errors.each do |field, messages|
-        Array(messages).each { |msg| @service.errors.add(field, msg) }
-      end
-
+      render_error(result)
       render :edit, status: :unprocessable_entity
     end
   end
@@ -55,5 +49,13 @@ class AdditionalServicesController < ApplicationController
 
   def service_params
     params.require(:additional_service).permit(:name, :value)
+  end
+
+  def render_error(result)
+    result.errors.each do |field, messages|
+        messages.each do |msg|
+          @plan.errors.add(field, msg)
+        end
+      end
   end
 end

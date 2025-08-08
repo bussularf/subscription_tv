@@ -1,0 +1,47 @@
+<%= form_with(model: @subscription, local: true) do |f| %>
+    <% if @subscription.errors.any? %>
+    <div class="alert alert-danger">
+      <h5><%= pluralize(@subscription.errors.count, "erro") %> impediram o salvamento da assinatura:</h5>
+      <ul>
+        <% @subscription.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :customer_id, "Cliente" %><br>
+    <%= f.collection_select :customer_id, Customer.all, :id, :name, prompt: "Selecione um cliente" %>
+  </div>
+
+  <div>
+    <%= f.label :plan_id, "Plano (opcional se for pacote)" %><br>
+    <%= f.collection_select :plan_id, Plan.all, :id, :name, include_blank: true %>
+  </div>
+
+  <div>
+    <%= f.label :package_id, "Pacote (opcional se for plano)" %><br>
+    <%= f.collection_select :package_id, Package.all, :id, :name, include_blank: true %>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Serviços Adicionais</label>
+    <% AdditionalService.all.each do |service| %>
+      <div class="form-check">
+        <%= check_box_tag "subscription[additional_service_ids][]",
+                          service.id,
+                          @subscription.additional_services.include?(service.id),
+                          id: "subscription_additional_service_#{service.id}",
+                          class: "form-check-input" %>
+
+        <%= label_tag "subscription_additional_service_#{service.id}",
+                      service.name,
+                      class: "form-check-label" %>
+      </div>
+    <% end %>
+  </div>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

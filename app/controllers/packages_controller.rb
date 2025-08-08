@@ -20,7 +20,7 @@ class PackagesController < ApplicationController
       redirect_to package_path(result.data), notice: t("packages.create.success")
     else
       @package = Package.new(package_params)
-      result.errors.each { |field, messages| Array(messages).each { |msg| @package.errors.add(field, msg) } }
+      render_error(result)
       render :new, status: :unprocessable_entity
     end
   end
@@ -31,7 +31,7 @@ class PackagesController < ApplicationController
     if result.success?
       redirect_to package_path(result.data), notice: t("packages.update.success")
     else
-      result.errors.each { |field, messages| Array(messages).each { |msg| @package.errors.add(field, msg) } }
+      render_error(result)
       render :edit, status: :unprocessable_entity
     end
   end
@@ -49,5 +49,13 @@ class PackagesController < ApplicationController
 
   def package_params
     params.require(:package).permit(:name, :plan_id, :value, :manual_value, additional_service_ids: [])
+  end
+
+  def render_error(result)
+    result.errors.each do |field, messages|
+        messages.each do |msg|
+          @package.errors.add(field, msg)
+        end
+      end
   end
 end

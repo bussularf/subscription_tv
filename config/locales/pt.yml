@@ -18,6 +18,11 @@ pt:
           key?: "não pode ficar em branco"
         additional_service_ids:
           gteq?: "pelo menos um é obrigatório"
+        customer_id:
+          filled?: "não pode ficar em branco"
+          key?: "não pode ficar em branco"
+
+
 
   attributes:
     name: "Nome"
@@ -25,6 +30,7 @@ pt:
     value: "Valor"
     plan_id: "Plano"
     additional_service_ids: "Serviço adicional"
+    customer_id: "Cliente"
 
   customers:
     update:

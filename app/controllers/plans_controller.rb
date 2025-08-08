@@ -20,11 +20,7 @@ class PlansController < ApplicationController
       redirect_to plan_path(result.data), notice: t("plans.create.success")
     else
       @plan = Plan.new(plan_params)
-
-      result.errors.each do |field, messages|
-        Array(messages).each { |msg| @plan.errors.add(field, msg) }
-      end
-
+      render_error(result)
       render :new, status: :unprocessable_entity
     end
   end
@@ -35,10 +31,7 @@ class PlansController < ApplicationController
     if result.success?
       redirect_to plan_path(@plan), notice: t("plans.update.success")
     else
-      result.errors.each do |field, messages|
-        Array(messages).each { |msg| @plan.errors.add(field, msg) }
-      end
-
+      render_error(result)
       render :edit, status: :unprocessable_entity
     end
   end
@@ -56,5 +49,13 @@ class PlansController < ApplicationController
 
   def plan_params
     params.require(:plan).permit(:name, :value)
+  end
+
+  def render_error(result)
+    result.errors.each do |field, messages|
+        messages.each do |msg|
+          @plan.errors.add(field, msg)
+        end
+      end
   end
 end

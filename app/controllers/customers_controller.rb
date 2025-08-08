@@ -33,7 +33,6 @@ class CustomersController < ApplicationController
       redirect_to customer_path(result.data), notice: t("customers.update.success")
     else
       render_error(result)
-
       render :edit, status: :unprocessable_entity
     end
   end

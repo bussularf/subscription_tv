@@ -29,14 +29,8 @@
       </div>
     <% end %>
   </div>
-
-  <% if @package.persisted? && @package.manual_value? %>
-    <%= f.input :manual_value, as: :boolean, label: "Manter valor manual?" %>
-  <% end %>
-
-  <% if !@package.persisted? || !@package.manual_value? %>
-    <%= f.input :value, label: "Valor (R$)", input_html: { class: 'form-control', inputmode: 'decimal', placeholder: "Ex: 19.90" } %>
-  <% end %>
-
+    
+  <%= f.input :manual_value, as: :boolean, label: "Manter valor manual?" %>
+  <%= f.input :value, label: "Valor (R$)", input_html: { class: 'form-control', inputmode: 'decimal', placeholder: "Ex: 19.90" } %>
   <%= f.button :submit, "Salvar Pacote", class: "btn btn-success" %>
 <% end %>
