@@ -6,7 +6,15 @@
 
     <div class="card-body">
       <h5 class="card-title"><%= @subscription.customer.name %></h5>
-      <p class="card-text"><strong>Valor:</strong> <%= @subscription.plan.value %></p>
+      <% if @subscription.plan.present? %>
+        <p class="card-text"><strong>Plano: </strong><%= @subscription.plan.name %> <%= @subscription.plan.value %></p>
+      <%end%>
+
+      <% if @subscription.package.present? %>
+        <p class="card-text"><strong>Pacote: </strong><%= @subscription.package.name %> <%= @subscription.package.value %></p>
+      <%end%>
+
+      <p class="card-text"><strong>Valor: </strong> <%= @subscription.value %></p>
     </div>
 
     <div class="card-footer text-end">

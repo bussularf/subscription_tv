@@ -13,7 +13,7 @@ module Subscriptions
         @params[:value] = value
 
         if @subscription
-          @subscription.update(additional_service_ids: @params[:additional_service_ids])
+          @subscription.update(@params)
           ServiceResponse.new(success: true, data: @subscription)
         else
           subscription = Subscription.create(@params)
