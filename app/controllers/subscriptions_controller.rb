@@ -48,8 +48,8 @@ class SubscriptionsController < ApplicationController
       :customer_id,
       :plan_id,
       :package_id,
-      :additional_service_ids,
-      :subscription_services_attributes
+      :subscription_services_attributes,
+      additional_service_ids: []
     )
   end
 

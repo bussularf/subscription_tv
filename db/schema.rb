@@ -52,10 +52,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_07_025130) do
 
   create_table "subscription_additional_services", force: :cascade do |t|
     t.bigint "subscription_id", null: false
-    t.bigint "additional_services_id", null: false
+    t.bigint "additional_service_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["additional_services_id"], name: "idx_on_additional_services_id_1f7a34ea3c"
+    t.index ["additional_service_id"], name: "idx_on_additional_service_id_305e585373"
     t.index ["subscription_id"], name: "index_subscription_additional_services_on_subscription_id"
   end
 
@@ -63,6 +63,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_07_025130) do
     t.bigint "customer_id", null: false
     t.bigint "plan_id"
     t.bigint "package_id"
+    t.decimal "value", precision: 10, scale: 2, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_subscriptions_on_customer_id"
@@ -71,7 +72,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_07_025130) do
   end
 
   add_foreign_key "packages", "plans"
-  add_foreign_key "subscription_additional_services", "additional_services", column: "additional_services_id"
+  add_foreign_key "subscription_additional_services", "additional_services"
   add_foreign_key "subscription_additional_services", "subscriptions"
   add_foreign_key "subscriptions", "customers"
   add_foreign_key "subscriptions", "packages"

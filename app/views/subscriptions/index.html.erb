@@ -9,7 +9,7 @@
         <thead class="table-dark">
           <tr>
             <th>Cliente</th>
-            <th>Valor do plano ou pacote</th>
+            <th>Valor da Assinatura</th>
             <th style="width: 200px;">Ações</th>
           </tr>
         </thead>
@@ -18,13 +18,7 @@
           <% @subscriptions.each do |subscription| %>
             <tr>
               <td><%= subscription.customer.name %></td>
-              <% if subscription.plan.present?%>
-                <td><%= subscription.plan.value %></td>
-              <%end%>
-
-              <% if subscription.package.present?%>
-                <td><%= subscription.package.value %></td>
-              <%end%>
+              <td><%= subscription.value %></td>
               <td>
                 <%= link_to 'Show', subscription_path(subscription), class: 'btn btn-primary btn-sm me-1' %>
                 <%= link_to 'Edit', edit_subscription_path(subscription), class: 'btn btn-secondary btn-sm me-1' %>

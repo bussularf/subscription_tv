@@ -9,8 +9,11 @@ module Subscriptions
       validation = SubscriptionContract.new.call(@params)
 
       if validation.success?
+        value = CalculateSubscription.new(@params).call
+        @params[:value] = value
+
         if @subscription
-          @subscription.update(@params)
+          @subscription.update(additional_service_ids: @params[:additional_service_ids])
           ServiceResponse.new(success: true, data: @subscription)
         else
           subscription = Subscription.create(@params)

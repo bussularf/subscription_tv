@@ -1,4 +1,4 @@
 class SubscriptionAdditionalService < ApplicationRecord
   belongs_to :subscription
-  belongs_to :additional_services
+  belongs_to :additional_service
 end
