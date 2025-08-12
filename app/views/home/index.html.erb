@@ -1,0 +1,56 @@
+<div class="container mt-5">
+  <h1 class="mb-4">📺 Sistema de Assinaturas</h1>
+  <p class="lead">Gerencie clientes, assinaturas, planos, pacotes e serviços adicionais em um só lugar.</p>
+
+  <div class="row mt-4">
+    <div class="col-md-4 mb-3">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">👤 Clientes</h5>
+          <p class="card-text">Cadastre e gerencie os clientes.</p>
+          <%= link_to "Ver clientes", customers_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">📦 Assinaturas</h5>
+          <p class="card-text">Gerencie as assinaturas dos clientes.</p>
+          <%= link_to "Ver assinaturas", subscriptions_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">📋 Planos</h5>
+          <p class="card-text">Defina e gerencie planos.</p>
+          <%= link_to "Ver planos", plans_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">📦 Pacotes</h5>
+          <p class="card-text">Gerencie os pacotes disponíveis.</p>
+          <%= link_to "Ver pacotes", packages_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">🛠 Serviços Adicionais</h5>
+          <p class="card-text">Gerencie serviços extras que podem ser adicionados às assinaturas.</p>
+          <%= link_to "Ver serviços", additional_services_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
