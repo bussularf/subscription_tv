@@ -52,6 +52,7 @@ class AdditionalServicesController < ApplicationController
   end
 
   def render_error(result)
+    @plan ||= Plan.new(service_params)
     result.errors.each do |field, messages|
         messages.each do |msg|
           @plan.errors.add(field, msg)

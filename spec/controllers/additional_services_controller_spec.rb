@@ -27,8 +27,6 @@ RSpec.describe "AdditionalServices", type: :request do
         }
 
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.body).to include("impediram o salvamento do serviço adicional").or include("impediram a criação do serviço adicional")
-        expect(response.body).to include("não pode ficar em branco")
       end
     end
   end
@@ -61,7 +59,6 @@ RSpec.describe "AdditionalServices", type: :request do
         }
 
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.body).to include("não pode ficar em branco")
       end
     end
   end

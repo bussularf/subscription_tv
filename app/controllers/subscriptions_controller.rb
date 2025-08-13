@@ -58,6 +58,8 @@ class SubscriptionsController < ApplicationController
   end
 
   def render_error(result)
+    @subscription ||= Subscription.new(subscription_params)
+
     result.errors.each do |field, messages|
         messages.each do |msg|
           @subscription.errors.add(field, msg)
