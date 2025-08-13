@@ -5,5 +5,7 @@ Rails.application.routes.draw do
   resources :plans
   resources :additional_services
   resources :packages
-  resources :subscriptions
+  resources :subscriptions do
+    resource :booklet, only: [ :show ]
+  end
 end

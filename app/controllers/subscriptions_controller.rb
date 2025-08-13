@@ -14,16 +14,36 @@ class SubscriptionsController < ApplicationController
 
   def edit; end
 
+  # def create
+  #   result = Subscriptions::ValidateSubscription.new(params: subscription_params.to_h.symbolize_keys).call
+
+  #   if result.success?
+  #     Subscriptions::BillCustomer.new(params: { subscription: result.data }).call
+  #     redirect_to subscription_path(result.data), notice: t("plans.create.success")
+  #   else
+  #     render_error(result)
+  #     render :new, status: :unprocessable_entity
+  #   end
+  # end
+
   def create
     result = Subscriptions::ValidateSubscription.new(params: subscription_params.to_h.symbolize_keys).call
 
     if result.success?
-      redirect_to subscription_path(result.data), notice: t("plans.create.success")
+      billing_result = Subscriptions::BillCustomer.new(params: { subscription: result.data }).call
+
+      if billing_result.success?
+        redirect_to subscription_booklet_path(billing_result.value!), notice: t("plans.create.success")
+      else
+        render_error(billing_result)
+        render :new, status: :unprocessable_entity
+      end
     else
       render_error(result)
       render :new, status: :unprocessable_entity
     end
   end
+
 
   def update
     result = Subscriptions::ValidateSubscription.new(params: subscription_params.to_h.symbolize_keys, subscription: @subscription).call

@@ -10,9 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_07_025130) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_13_052338) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.string "billable_type", null: false
+    t.bigint "billable_id", null: false
+    t.bigint "invoice_id", null: false
+    t.date "due_date"
+    t.decimal "value", precision: 10, scale: 2, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["billable_type", "billable_id"], name: "index_accounts_on_billable"
+    t.index ["invoice_id"], name: "index_accounts_on_invoice_id"
+  end
 
   create_table "additional_services", force: :cascade do |t|
     t.string "name"
@@ -26,11 +38,27 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_07_025130) do
     t.bigint "package_id", null: false
   end
 
+  create_table "booklets", force: :cascade do |t|
+    t.bigint "subscription_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subscription_id"], name: "index_booklets_on_subscription_id"
+  end
+
   create_table "customers", force: :cascade do |t|
     t.string "name"
     t.integer "age"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.bigint "booklet_id", null: false
+    t.date "due_date"
+    t.decimal "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booklet_id"], name: "index_invoices_on_booklet_id"
   end
 
   create_table "packages", force: :cascade do |t|
@@ -71,6 +99,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_07_025130) do
     t.index ["plan_id"], name: "index_subscriptions_on_plan_id"
   end
 
+  add_foreign_key "accounts", "invoices"
+  add_foreign_key "booklets", "subscriptions"
+  add_foreign_key "invoices", "booklets"
   add_foreign_key "packages", "plans"
   add_foreign_key "subscription_additional_services", "additional_services"
   add_foreign_key "subscription_additional_services", "subscriptions"

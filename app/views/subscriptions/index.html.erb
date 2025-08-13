@@ -22,7 +22,7 @@
               <td>
                 <%= link_to 'Show', subscription_path(subscription), class: 'btn btn-primary btn-sm me-1' %>
                 <%= link_to 'Edit', edit_subscription_path(subscription), class: 'btn btn-secondary btn-sm me-1' %>
-                <%= link_to 'Delete', subscription_path(subscription.id),method: :delete, data: { confirm: 'Tem certeza que deseja excluir?' }, class: 'btn btn-danger btn-sm' %>
+                <%= link_to 'Delete', subscription_path(subscription.id),method: :delete,  class: 'btn btn-danger btn-sm' %>
               </td>
             </tr>
           <% end %>

@@ -1,0 +1,34 @@
+<div class="container mt-4">
+  <h1 class="mb-4">Carnê</h1>
+
+  <% @booklet.invoices.each do |invoice| %>
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <strong>Fatura</strong> — 
+        Vencimento: <%= invoice.due_date %> — 
+        Valor Total: <%= number_to_currency(invoice.value) %>
+      </div>
+
+      <div class="card-body p-0">
+        <table class="table table-striped mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Tipo</th>
+              <th>Nome</th>
+              <th class="text-end">Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% invoice.accounts.each do |account| %>
+              <tr>
+                <td><%= account.billable_type %></td>
+                <td><%= account.billable.name %></td>
+                <td class="text-end"><%= number_to_currency(account.value) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+</div>
